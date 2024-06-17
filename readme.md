@@ -1,7 +1,7 @@
-# 网上书店系统
+# game系统
 ## 项目简述:
 &emsp;在B站尚硅谷Javaweb视频中学习了网上书店系统，但是所给的项目并没有完全实现，自己实现了整个完整的项目，并且添加了不少的功能（项目语言为Java，框架为**MVC**，服务器Tomcat，数据库MySQL）。<br>
-&emsp;快速搭建：clone之后，在IDEA中打开，配置Tomcat服务器（Tomcat7/8/9及最新的均可），找到sql文件夹并在MySQL（MySQL的版本最好是5.x避免出现问题）中导入文件bookstore.sql，此时会创建名为book的数据库数据，找到jdbc.properties文件，将其中的username和password更改为自己的数据库的用户名和密码。之后在MySQL数据库管理系统可以查看关于账户密码问题（管理员账号和密码均为admin，其它为普通用户），之后运行即可。
+&emsp;快速搭建：clone之后，在IDEA中打开，配置Tomcat服务器（Tomcat7/8/9及最新的均可），找到sql文件夹并在MySQL（MySQL的版本最好是5.x避免出现问题）中导入文件gamestore.sql，此时会创建名为game的数据库数据，找到jdbc.properties文件，将其中的username和password更改为自己的数据库的用户名和密码。之后在MySQL数据库管理系统可以查看关于账户密码问题（管理员账号和密码均为admin，其它为普通用户），之后运行即可。
 
 ## 项目的设计报告如下（文件夹report中提供了word版的详细设计报告可以参考）
 ## 【详细设计】
@@ -24,56 +24,10 @@
 
 ![image](https://user-images.githubusercontent.com/60840921/153998463-e400b161-75a0-4b30-9abc-a496251b7144.png)
 ![SIUSS(SFDAF6$D(V N7ZY1S](https://user-images.githubusercontent.com/60840921/154036794-41637771-afc1-42fa-90d2-e4962123590d.png)
-**特别注意Tomcat项目路径是/Book，所以项目首页默认打开是`http://localhost:8080/Book/`，如果发现购物车点击没有反应，一般都是因为在IDEA中Tomcat配置不是/Book，如上图**
+**特别注意Tomcat项目路径是/Game，所以项目首页默认打开是`http://localhost:8080/Game/`，如果发现购物车点击没有反应，一般都是因为在IDEA中Tomcat配置不是/Game，如上图**
 ---
 
-### （二）用户界面设计
 
-**1、首页**
-
-![image](https://user-images.githubusercontent.com/60840921/154052790-c51f95ec-0629-4dea-ba42-1e4a147aa24d.png)
-
-**2、登录页面** 
-
-![image](https://user-images.githubusercontent.com/60840921/154052849-c4205af2-436d-4f86-a242-b64acf3e5997.png)
-
-
-**3、注册页面** 
-
-![image](https://user-images.githubusercontent.com/60840921/154052894-eb085e08-94a3-42b9-b707-8aa64c622ba7.png)
-
-
-**4、用户购物车页面**
-
-![image](https://user-images.githubusercontent.com/60840921/154052926-447254de-4a1d-4052-8ad4-cc35e2b59a8f.png)
-
-**5、 我的订单页面**
-
-![image](https://user-images.githubusercontent.com/60840921/154052947-eb82ca76-4fb0-4d26-97b8-fcf75b0d8a1e.png)
-
-
-**6、图书管理页面**
-
-![image](https://user-images.githubusercontent.com/60840921/154052991-29ceb319-1dd5-4f8d-ad53-dbc4c824449a.png)
-
-
-**7、订单管理页面**
-
-![image](https://user-images.githubusercontent.com/60840921/154053011-4a6d6e69-8a9a-4393-a837-6f07b5885e8c.png)
-
-
-**8、榜单**
-
-![image](https://user-images.githubusercontent.com/60840921/154053203-4912d0e0-3cb6-4547-8e34-5eaed27cd254.png)
-
-**9、总账单页面**
-
-![image](https://user-images.githubusercontent.com/60840921/154053247-e4ce4084-6cf6-4b2d-a589-15dd76e89eee.png)
-
-
-**10、个人信息页面**
-
-![image](https://user-images.githubusercontent.com/60840921/154053278-0406861d-c2de-4b6c-8fc9-283b74bdac0d.png)
 
 ---
 
@@ -81,8 +35,8 @@
 
 ### （三）数据库存储设计
 
- 根据前端页面以及之前大实验的分析，我们决定创建book数据库，建库语句如下：
- 
+ 根据前端页面以及之前大实验的分析，我们决定创建game数据库，建库语句如下：
+
 ![image](https://user-images.githubusercontent.com/60840921/154053614-e54b2fa4-ed49-4c22-9370-f55cfeb8ba42.png)
 
 并决定创建4张表如下： 
@@ -166,47 +120,47 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 **图书模块**
 
- &emsp;根据数据库设计javabean，并在book中添加get()、set()方法、toSting()方法以及有参无参构造函数。
+ &emsp;根据数据库设计javabean，并在game中添加get()、set()方法、toSting()方法以及有参无参构造函数。
 
- 然后设计我们的bookDao层，因为我们书籍一般都有增删改查的操作，所以在bookDao中我们有通过id查询图书、删除图书、改变图书的操作，之后测试sql语句是否正确，例如查询操作：
+ 然后设计我们的gameDao层，因为我们书籍一般都有增删改查的操作，所以在gameDao中我们有通过id查询图书、删除图书、改变图书的操作，之后测试sql语句是否正确，例如查询操作：
 
 ```java
-public Book queryBookById(Integer id) {
-   String sql = "select * from t_book where id = ?";
-   return queryForOne(Book.class,sql,id);
+public Game queryGameById(Integer id) {
+   String sql = "select * from t_game where id = ?";
+   return queryForOne(Game.class,sql,id);
  }
 ```
 
 就是一个简单的sql语句，然后利用我们的数据库编程类库，之间得到我们查询之后的图书对象。之后的service层也是通过dao层来实现方法，而我们的servlet层也是如此，这个时候我们要去管理员的图书管理页面去设置我们数据显示。这里就用到了JSP技术，也就是为什么之前要将HTML换位JSP页面的原因，可以动态的显示书籍信息，例如：
 ```html
-<c:forEach items="${requestScope.page.items}" var="book">
+<c:forEach items="${requestScope.page.items}" var="game">
             <div class="b_list">
                 <div class="img_div">
-                    <img class="book_img" alt="" src="${book.imgPath}" />
+                    <img class="game_img" alt="" src="${game.imgPath}" />
                 </div>
-                <div class="book_info">
-                    <div class="book_name">
+                <div class="game_info">
+                    <div class="game_name">
                         <span class="sp1">书名:</span>
-                        <span class="sp2">${book.name}</span>
+                        <span class="sp2">${game.name}</span>
                     </div>
-                    <div class="book_author">
+                    <div class="game_author">
                         <span class="sp1">作者:</span>
-                        <span class="sp2">${book.author}</span>
+                        <span class="sp2">${game.author}</span>
                     </div>
-                    <div class="book_price">
+                    <div class="game_price">
                         <span class="sp1">价格:</span>
-                        <span class="sp2">￥${book.price}</span>
+                        <span class="sp2">￥${game.price}</span>
                     </div>
-                    <div class="book_sales">
+                    <div class="game_sales">
                         <span class="sp1">销量:</span>
-                        <span class="sp2">${book.sales}</span>
+                        <span class="sp2">${game.sales}</span>
                     </div>
-                    <div class="book_amount">
+                    <div class="game_amount">
                         <span class="sp1">库存:</span>
-                        <span class="sp2">${book.stock}</span>
+                        <span class="sp2">${game.stock}</span>
                     </div>
-                    <div class="book_add">
-                        <button bookId=${book.id} class="addToCart">加入购物车</button>
+                    <div class="game_add">
+                        <button gameId=${game.id} class="addToCart">加入购物车</button>
                     </div>
                 </div>
             </div>
@@ -242,18 +196,4 @@ public Book queryBookById(Integer id) {
 
 ![image](https://user-images.githubusercontent.com/60840921/154054762-8f47322a-2353-478f-ac8b-7b71f394e5b4.png)
 
- *那么我们的网上书店就完成了！*
 
----
-
-
-
-## 联系我
-
-&emsp;如果有什么问题欢迎联系我~
-
-&emsp;邮箱：yangjie.dev@outlook.com
-
-&emsp;CSDN：[threecat.up](https://blog.csdn.net/qq_43919400?spm=1000.2115.3001.5343)
-
-## 如果对你有帮助的话，可以给个star吗？:grin:
